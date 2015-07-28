@@ -798,7 +798,8 @@
             'z-index: 99999;' +
             'background: rgba(0, 0, 0, 0);' +
         '}' +
-        '.vs-repeat-repeated-element{' +
+        '.vs-repeat-repeated-element,' +
+        '[vs-repeat-header]{' +
             'position: absolute;' +
             'z-index: 1;' +
         '}' +
