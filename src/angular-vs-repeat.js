@@ -139,7 +139,7 @@
             compile: function($element, $attrs) {
                 var repeatContainer = angular.isDefined($attrs.vsRepeatContainer) ? angular.element($element[0].querySelector($attrs.vsRepeatContainer)) : $element,
                     repeatHeader = $element[0].querySelector('[vs-repeat-header]') || false,
-                    ngRepeatChild = repeatContainer.children().eq(0),
+                    ngRepeatChild = angular.element(repeatContainer[0].querySelector('[ng-repeat]')),
                     ngRepeatExpression = ngRepeatChild.attr('ng-repeat') || ngRepeatChild.attr('data-ng-repeat'),
                     childCloneHtml = ngRepeatChild[0].outerHTML,
                     expressionMatches = /^\s*(\S+)\s+in\s+([\S\s]+?)(track\s+by\s+\S+)?$/.exec(ngRepeatExpression),
@@ -304,7 +304,9 @@
                             '(($index + startIndex) * elementSize + offsetBefore)';
 
                         if(repeatHeader){
-                            repeatContainer.prepend(repeatHeader);
+                            var compiledRepeatHeader = $compile(angular.element(repeatHeader))($scope);
+                            repeatContainer.prepend(compiledRepeatHeader);
+
                         }
 
                         childClone.attr('vs-set-offset', offsetCalculationString);
